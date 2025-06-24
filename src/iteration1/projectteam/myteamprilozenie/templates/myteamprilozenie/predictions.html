@@ -1,0 +1,46 @@
+{% extends "myteamprilozenie/base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Результаты оценки риска</h2>
+    </div>
+    <div class="card-body">
+        <div class="alert 
+            {% if prediction.risk_level == 'VL' %}alert-success
+            {% elif prediction.risk_level == 'L' %}alert-info
+            {% elif prediction.risk_level == 'M' %}alert-warning
+            {% else %}alert-danger
+            {% endif %}">
+            <h4 class="alert-heading">
+                {% if prediction.risk_level == 'VL' %}Очень низкий риск
+                {% elif prediction.risk_level == 'L' %}Низкий риск
+                {% elif prediction.risk_level == 'M' %}Умеренный риск
+                {% elif prediction.risk_level == 'H' %}Высокий риск
+                {% else %}Очень высокий риск
+                {% endif %}
+            </h4>
+            <p>Вероятность инсульта: <strong>{{ prediction.probability|floatformat:2 }}%</strong></p>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h4>Данные пациента:</h4>
+                <p><strong>ФИО:</strong> {{ prediction.patient.name }}</p>
+                <p><strong>Возраст:</strong> {{ prediction.patient.age }}</p>
+                <p><strong>Пол:</strong> {{ prediction.patient.get_gender_display }}</p>
+            </div>
+            <div class="col-md-6">
+                <h4>Ключевые показатели:</h4>
+                <p><strong>Давление:</strong> {{ prediction.medical_history.blood_pressure }}</p>
+                <p><strong>Глюкоза:</strong> {{ prediction.medical_history.average_glucose }}</p>
+                <p><strong>ИМТ:</strong> {{ prediction.medical_history.bmi }}</p>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <a href="{% url 'myteamprilozenie:home' %}" class="btn btn-primary">Новая оценка</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

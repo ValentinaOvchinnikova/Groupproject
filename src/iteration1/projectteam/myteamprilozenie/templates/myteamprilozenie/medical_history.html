@@ -1,0 +1,102 @@
+{% extends "myteamprilozenie/base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Медицинские данные пациента: {{ patient.name }}</h2>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.average_glucose.label }}</label>
+                    {{ form.average_glucose }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.bmi.label }}</label>
+                    {{ form.bmi }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.blood_pressure.label }}</label>
+                    {{ form.blood_pressure }}
+                    {% if form.blood_pressure.errors %}
+                        <div class="text-danger">{{ form.blood_pressure.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.hdl.label }}</label>
+                    {{ form.hdl }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.ldl.label }}</label>
+                    {{ form.ldl }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.stress_level.label }}</label>
+                    {{ form.stress_level }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.dietary_habits.label }}</label>
+                    {{ form.dietary_habits }}
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">{{ form.symptoms.label }}</label>
+                {{ form.symptoms }}
+            </div>
+            
+            <div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="form-check form-switch">
+            {{ form.hypertension }}
+            <label class="form-check-label">{{ form.hypertension.label }}</label>
+        </div>
+        <div class="form-check form-switch">
+            {{ form.heart_disease }}
+            <label class="form-check-label">{{ form.heart_disease.label }}</label>
+        </div>
+        <div class="form-check form-switch">
+            {{ form.diagnosis }}
+            <label class="form-check-label">{{ form.diagnosis.label }}</label>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="form-check form-switch">
+            {{ form.stroke_history }}
+            <label class="form-check-label">{{ form.stroke_history.label }}</label>
+        </div>
+        <div class="form-check form-switch">
+            {{ form.family_stroke_history }}
+            <label class="form-check-label">{{ form.family_stroke_history.label }}</label>
+        </div>
+    </div>
+</div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.smoking_status.label }}</label>
+                    {{ form.smoking_status }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.alcohol_intake.label }}</label>
+                    {{ form.alcohol_intake }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.physical_activity.label }}</label>
+                    {{ form.physical_activity }}
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Оценить риск →</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
